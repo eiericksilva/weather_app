@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "./App.css";
 
 function App() {
   const [city, setCity] = useState("");
@@ -31,21 +32,24 @@ function App() {
   return (
     <div className="Container">
       <form>
-        <input value={city} onChange={handleChange} />
+        <input placeholder="City" value={city} onChange={handleChange} />
         <button type="submit" onClick={handleSearch}>
           Pesquise
         </button>
       </form>
       {weatherForecast && (
-        <>
-          <div>Condição do tempo:{weatherForecast.current.condition.text}</div>
-          <div>Umidade:{weatherForecast.current.humidity}</div>
-          <div>{weatherForecast.current.is_day ? "Dia" : "Noite"}</div>
-          <div>{weatherForecast.current.temp_c}ºC</div>
-          <span>{weatherForecast.location.name}</span>
-          <span>{weatherForecast.location.region}</span>
-          <span>{weatherForecast.location.country}</span>
-        </>
+        <div className="ContainerData">
+          <div className="headerData">
+            <div className="location">
+              <h1>{weatherForecast.location.name}</h1>
+              <h3>{weatherForecast.location.region}</h3>
+            </div>
+            <div>{weatherForecast.current.last_updated}</div>
+            <div>{weatherForecast.current.condition.text}</div>
+          </div>
+          <h1 id="current_temp">{weatherForecast.current.temp_c}ºC</h1>
+          <div>Umidade: {weatherForecast.current.humidity}%</div>
+        </div>
       )}
     </div>
   );
